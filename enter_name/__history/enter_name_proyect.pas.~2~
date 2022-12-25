@@ -1,0 +1,60 @@
+unit enter_name_proyect;
+
+interface
+
+// Add the necessary units to the uses clause
+uses
+  Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, System.Classes, System.SysUtils;
+
+// Declare global variables to hold the input and output image paths
+var
+  InputImagePath: string;
+  OutputImagePath: string;
+
+// Declare the form and its controls
+type
+  TForm1 = class(TForm)
+    OpenPictureDialog1: TOpenPictureDialog;
+    SavePictureDialog1: TSavePictureDialog;
+    Button1: TButton;
+    Button2: TButton;
+    Image1: TImage;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+// This function takes an image and blurs it using a simple box blur algorithm
+function BlurImage(const Image: TImage): TImage;
+var
+  I, J: Integer;
+  R, G, B: Byte;
+  P: PByteArray;
+begin
+  // Create a new image with the same dimensions as the input image
+  Result := TImage.Create(Image.Width, Image.Height);
+
+  // Loop through each pixel of the image
+  for I := 0 to Image.Width - 1 do
+  begin
+    for J := 0 to Image.Height - 1 do
+    begin
+      // Calculate the average R, G, and B values of the surrounding pixels
+      R := (Image.Canvas.Pixels[I - 1, J - 1] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I - 1, J] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I - 1, J + 1] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I, J - 1] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I, J] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I, J + 1] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I + 1, J - 1] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I + 1, J] and $FF0000) shr 16;
+      R := R + (Image.Canvas.Pixels[I + 1, J + 1] and $FF0000) shr 16;
+      R := R div 9;
+
+      G := (Image.Canvas.Pixels[I - 1, J - 1] and $00FF00) shr 8;
+      G := G + (Image.Canvas.Pixels[I - 1, J] and $00FF00) shr 8;
+      G := G + (Image.Canvas.Pixels[I - 1, J + 1] and $00FF00) shr 8;
+

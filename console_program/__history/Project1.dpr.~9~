@@ -1,0 +1,18 @@
+program Project1;
+
+uses System.SysUtils;
+
+{$APPTYPE CONSOLE}
+
+var nombre : string;
+var edad: Integer;
+
+begin
+  writeln('Hola, escribe tu nombre:');
+  Readln(nombre);
+  write('Hola, ' + nombre);
+  writeln('¿Qué edad tienes?');
+  readln(edad);
+  writeln('Tienes ' + IntToStr(edad));
+  readln
+end.

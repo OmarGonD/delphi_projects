@@ -1,0 +1,11 @@
+program Project1;
+
+{$APPTYPE CONSOLE}
+
+var nombre : string;
+
+begin
+  Writeln('Hola, escribe tu nombre:');
+  Readln(nombre);
+  write('Hola, ' + nombre);
+end.

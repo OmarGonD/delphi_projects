@@ -1,0 +1,9 @@
+program Project1;
+
+{$APPTYPE CONSOLE}
+
+
+begin
+  Writeln("Hola:");
+  Readln;
+end.
